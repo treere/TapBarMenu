@@ -358,28 +358,28 @@ public class TapBarMenu extends LinearLayout {
 
     button[RADIUS] = buttonSize;
     setButtonPosition(width);
-    float iconLeft = button[LEFT] + buttonSize / 3;
+    float iconLeft = button[LEFT] + buttonSize / 3.f;
 
-    float iconTop = (height - buttonSize) / 2 + buttonSize / 3;
-    float iconRight = button[RIGHT] - buttonSize / 3;
-    float iconBottom = (height + buttonSize) / 2 - buttonSize / 3;
+    float iconTop = (height - buttonSize) / 2.f + buttonSize / 3.f;
+    float iconRight = button[RIGHT] - buttonSize / 3.f;
+    float iconBottom = (height + buttonSize) / 2.f - buttonSize / 3.f;
     iconOpenedDrawable.setBounds((int) iconLeft, (int) iconTop, (int) iconRight, (int) iconBottom);
     iconClosedDrawable.setBounds((int) iconLeft, (int) iconTop, (int) iconRight, (int) iconBottom);
   }
 
   private void setButtonPosition(float w) {
     if (buttonPosition == BUTTON_POSITION_CENTER) {
-      button[LEFT] = ((w / 2) - (buttonSize / 2));
+      button[LEFT] = ((w / 2.f) - (buttonSize / 2.f));
     } else if (buttonPosition == BUTTON_POSITION_LEFT) {
-      button[LEFT] = 0;
+      button[LEFT] = 0.f;
     } else {
       button[LEFT] = w - buttonSize;
     }
     int padding = buttonMarginLeft - buttonMarginRight;
     button[LEFT] += padding;
     button[RIGHT] = button[LEFT] + buttonSize;
-    button[TOP] = (height - buttonSize) / 2;
-    button[BOTTOM] = (height + buttonSize) / 2;
+    button[TOP] = (height - buttonSize) / 2.f;
+    button[BOTTOM] = (height + buttonSize) / 2.f;
     buttonLeftInitial = button[LEFT];
     buttonRightInitial = button[RIGHT];
   }
@@ -422,58 +422,58 @@ public class TapBarMenu extends LinearLayout {
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
   private Path createRoundedRectPathApi21(float left, float top, float right, float bottom, float rx, float ry, boolean conformToOriginalPost) {
     Path path = new Path();
-    if (rx < 0) rx = 0;
-    if (ry < 0) ry = 0;
+    if (rx < 0.f) rx = 0.f;
+    if (ry < 0.f) ry = 0.f;
     float width = right - left;
     float height = bottom - top;
-    if (rx > width / 2) rx = width / 2;
-    if (ry > height / 2) ry = height / 2;
-    float widthMinusCorners = (width - (2 * rx));
-    float heightMinusCorners = (height - (2 * ry));
+    if (rx > width / 2.f) rx = width / 2.f;
+    if (ry > height / 2.f) ry = height / 2.f;
+    float widthMinusCorners = (width - (2.f * rx));
+    float heightMinusCorners = (height - (2.f * ry));
     path.moveTo(right, top + ry);
-    path.arcTo(right - 2 * rx, top, right, top + 2 * ry, 0, -90, false);
+    path.arcTo(right - 2.f * rx, top, right, top + 2.f * ry, 0, -90.f, false);
     path.rLineTo(-widthMinusCorners, 0);
-    path.arcTo(left, top, left + 2 * rx, top + 2 * ry, 270, -90, false);
-    path.rLineTo(0, heightMinusCorners);
+    path.arcTo(left, top, left + 2.f * rx, top + 2.f * ry, 270.f, -90.f, false);
+    path.rLineTo(0.f, heightMinusCorners);
     if (conformToOriginalPost) {
-      path.rLineTo(0, ry);
-      path.rLineTo(width, 0);
-      path.rLineTo(0, -ry);
+      path.rLineTo(0.f, ry);
+      path.rLineTo(width, 0.f);
+      path.rLineTo(0.f, -ry);
     } else {
-      path.arcTo(left, bottom - 2 * ry, left + 2 * rx, bottom, 180, -90, false);
+      path.arcTo(left, bottom - 2.f * ry, left + 2.f * rx, bottom, 180.f, -90.f, false);
       path.rLineTo(widthMinusCorners, 0);
-      path.arcTo(right - 2 * rx, bottom - 2 * ry, right, bottom, 90, -90, false);
+      path.arcTo(right - 2.f * rx, bottom - 2.f * ry, right, bottom, 90.f, -90.f, false);
     }
-    path.rLineTo(0, -heightMinusCorners);
+    path.rLineTo(0.f, -heightMinusCorners);
     path.close();
     return path;
   }
 
   private Path createRoundedRectPathPreApi21(float left, float top, float right, float bottom, float rx, float ry, boolean conformToOriginalPost) {
     Path path = new Path();
-    if (rx < 0) rx = 0;
-    if (ry < 0) ry = 0;
+    if (rx < 0.f) rx = 0.f;
+    if (ry < 0.f) ry = 0.f;
     float width = right - left;
     float height = bottom - top;
-    if (rx > width / 2) rx = width / 2;
-    if (ry > height / 2) ry = height / 2;
-    float widthMinusCorners = (width - (2 * rx));
-    float heightMinusCorners = (height - (2 * ry));
+    if (rx > width / 2.f) rx = width / 2.f;
+    if (ry > height / 2.f) ry = height / 2.f;
+    float widthMinusCorners = (width - (2.f * rx));
+    float heightMinusCorners = (height - (2.f * ry));
     path.moveTo(right, top + ry);
-    path.rQuadTo(0, -ry, -rx, -ry);
+    path.rQuadTo(0.f, -ry, -rx, -ry);
     path.rLineTo(-widthMinusCorners, 0);
-    path.rQuadTo(-rx, 0, -rx, ry);
-    path.rLineTo(0, heightMinusCorners);
+    path.rQuadTo(-rx, 0.f, -rx, ry);
+    path.rLineTo(0.f, heightMinusCorners);
     if (conformToOriginalPost) {
-      path.rLineTo(0, ry);
-      path.rLineTo(width, 0);
-      path.rLineTo(0, -ry);
+      path.rLineTo(0.f, ry);
+      path.rLineTo(width, 0.f);
+      path.rLineTo(0.f, -ry);
     } else {
-      path.rQuadTo(0, ry, rx, ry);
-      path.rLineTo(widthMinusCorners, 0);
-      path.rQuadTo(rx, 0, rx, -ry);
+      path.rQuadTo(0.f, ry, rx, ry);
+      path.rLineTo(widthMinusCorners, 0.f);
+      path.rQuadTo(rx, 0.f, rx, -ry);
     }
-    path.rLineTo(0, -heightMinusCorners);
+    path.rLineTo(0.f, -heightMinusCorners);
     path.close();
     return path;
   }
