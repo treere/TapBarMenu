@@ -124,6 +124,8 @@ public class TapBarMenu extends LinearLayout {
     for ( int i = 0 ; i < 5 ; i++ )
       animator[i] = new ValueAnimator();
 
+
+
     animator[LEFT].addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
       @Override
       public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -194,6 +196,7 @@ public class TapBarMenu extends LinearLayout {
    * Open the menu.
    */
   public void open() {
+    if ( state == State.OPENED) return ;
     state = State.OPENED;
     showIcons(true);
 
@@ -218,8 +221,10 @@ public class TapBarMenu extends LinearLayout {
    * Close the menu.
    */
   public void close() {
-    updateDimensions(width, height);
+    if ( state == State.CLOSED) return ;
     state = State.CLOSED;
+    updateDimensions(width, height);
+
     showIcons(false);
 
     animator[LEFT].setFloatValues(0, button[LEFT]);
