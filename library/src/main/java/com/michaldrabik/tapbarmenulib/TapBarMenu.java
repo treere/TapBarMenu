@@ -43,6 +43,10 @@ public class TapBarMenu extends LinearLayout {
     CLOSED
   }
 
+  private enum Direction {
+    LEFT,RIGHT,TOP,BOTTOM,RADIUS
+  }
+
   private static final int LEFT = 0;
   private static final int RIGHT = 1;
   private static final int TOP = 2;
@@ -207,9 +211,9 @@ public class TapBarMenu extends LinearLayout {
     animatorSet.cancel();
     animatorSet.start();
     ((Animatable) iconOpenedDrawable).start();
-    ViewGroup parentView = (ViewGroup) TapBarMenu.this.getParent();
+    //ViewGroup parentView = (ViewGroup) TapBarMenu.this.getParent();
     this.animate()
-        .y(menuAnchor == MENU_ANCHOR_BOTTOM ? parentView.getBottom() - height : 0)
+        .y(menuAnchor == MENU_ANCHOR_BOTTOM ? ((ViewGroup)this.getParent()).getBottom() - height : 0)
             .setDuration(animationDuration)
             .setInterpolator(DECELERATE_INTERPOLATOR)
             .start();
