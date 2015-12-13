@@ -43,10 +43,6 @@ public class TapBarMenu extends LinearLayout {
     CLOSED
   }
 
-  private enum Direction {
-    LEFT,RIGHT,TOP,BOTTOM,RADIUS
-  }
-
   private static final int LEFT = 0;
   private static final int RIGHT = 1;
   private static final int TOP = 2;
@@ -127,8 +123,6 @@ public class TapBarMenu extends LinearLayout {
     for ( int i = 0 ; i < 5 ; i++ ) {
       animator[i] = new ValueAnimator();
     }
-
-
 
     animator[LEFT].addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
       @Override
@@ -211,7 +205,7 @@ public class TapBarMenu extends LinearLayout {
     animatorSet.cancel();
     animatorSet.start();
     ((Animatable) iconOpenedDrawable).start();
-    //ViewGroup parentView = (ViewGroup) TapBarMenu.this.getParent();
+
     this.animate()
         .y(menuAnchor == MENU_ANCHOR_BOTTOM ? ((ViewGroup)this.getParent()).getBottom() - height : 0)
             .setDuration(animationDuration)
@@ -351,7 +345,8 @@ public class TapBarMenu extends LinearLayout {
   }
 
   @Override protected void onDraw(Canvas canvas) {
-    canvas.drawPath(createRoundedRectPath(button[LEFT], button[TOP], button[RIGHT], button[BOTTOM], button[RADIUS], button[RADIUS], false), paint);
+    createRoundedRectPath(button[LEFT], button[TOP], button[RIGHT], button[BOTTOM], button[RADIUS], button[RADIUS], false);
+    canvas.drawPath(path, paint);
     if (state == State.CLOSED) {
       iconClosedDrawable.draw(canvas);
     } else {
