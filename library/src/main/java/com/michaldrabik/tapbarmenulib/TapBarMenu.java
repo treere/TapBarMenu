@@ -1,6 +1,5 @@
 package com.michaldrabik.tapbarmenulib;
 
-import android.util.Log;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -50,11 +49,11 @@ public class TapBarMenu extends LinearLayout {
   private static final int BOTTOM = 3;
   private static final int RADIUS = 4;
 
-  AnimatorSet animatorSet = new AnimatorSet();
-
+  private AnimatorSet animatorSet = new AnimatorSet();
   private ValueAnimator[] animator = new ValueAnimator[5];
   private float [] button = new float[5];
 
+  private Path path = new Path();
   private State state = State.CLOSED;
   private Paint paint;
   private int animationDuration;
@@ -63,9 +62,9 @@ public class TapBarMenu extends LinearLayout {
   private float buttonLeftInitial;
   private float buttonRightInitial;
   private float yPosition;
-  private OnClickListener onClickListener;
   private Drawable iconOpenedDrawable;
   private Drawable iconClosedDrawable;
+  private OnClickListener onClickListener;
 
   //Custom XML Attributes
   private int backgroundColor;
@@ -121,8 +120,9 @@ public class TapBarMenu extends LinearLayout {
   }
 
   private void setupAnimators() {
-    for ( int i = 0 ; i < 5 ; i++ )
+    for ( int i = 0 ; i < 5 ; i++ ) {
       animator[i] = new ValueAnimator();
+    }
 
 
 
@@ -157,9 +157,7 @@ public class TapBarMenu extends LinearLayout {
         invalidate();
       }
     });
-
     animationDuration = getResources().getInteger(R.integer.animationDuration);
-
     animatorSet.setDuration(animationDuration);
     animatorSet.setInterpolator(DECELERATE_INTERPOLATOR);
     animatorSet.playTogether(animator);
@@ -372,13 +370,13 @@ public class TapBarMenu extends LinearLayout {
     iconClosedDrawable.setBounds((int) iconLeft, (int) iconTop, (int) iconRight, (int) iconBottom);
   }
 
-  private void setButtonPosition(float w) {
+  private void setButtonPosition(float width) {
     if (buttonPosition == BUTTON_POSITION_CENTER) {
-      button[LEFT] = ((w / 2.f) - (buttonSize / 2.f));
+      button[LEFT] = ((width / 2.f) - (buttonSize / 2.f));
     } else if (buttonPosition == BUTTON_POSITION_LEFT) {
       button[LEFT] = 0.f;
     } else {
-      button[LEFT] = w - buttonSize;
+      button[LEFT] = width - buttonSize;
     }
     int padding = buttonMarginLeft - buttonMarginRight;
     button[LEFT] += padding;
@@ -417,16 +415,17 @@ public class TapBarMenu extends LinearLayout {
   }
 
   private Path createRoundedRectPath(float left, float top, float right, float bottom, float rx, float ry, boolean conformToOriginalPost) {
+    path.reset();
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      return createRoundedRectPathApi21(left, top, right, bottom, rx, ry, conformToOriginalPost);
+      return createRoundedRectPathApi21(path, left, top, right, bottom, rx, ry, conformToOriginalPost);
     } else {
-      return createRoundedRectPathPreApi21(left, top, right, bottom, rx, ry, conformToOriginalPost);
+      return createRoundedRectPathPreApi21(path, left, top, right, bottom, rx, ry, conformToOriginalPost);
     }
   }
 
   @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-  private Path createRoundedRectPathApi21(float left, float top, float right, float bottom, float rx, float ry, boolean conformToOriginalPost) {
-    Path path = new Path();
+  private Path createRoundedRectPathApi21(Path path, float left, float top, float right, float bottom, float rx, float ry, boolean
+          conformToOriginalPost) {
     if (rx < 0.f) rx = 0.f;
     if (ry < 0.f) ry = 0.f;
     float width = right - left;
@@ -454,8 +453,8 @@ public class TapBarMenu extends LinearLayout {
     return path;
   }
 
-  private Path createRoundedRectPathPreApi21(float left, float top, float right, float bottom, float rx, float ry, boolean conformToOriginalPost) {
-    Path path = new Path();
+  private Path createRoundedRectPathPreApi21(Path path, float left, float top, float right, float bottom, float rx, float ry, boolean
+          conformToOriginalPost) {
     if (rx < 0.f) rx = 0.f;
     if (ry < 0.f) ry = 0.f;
     float width = right - left;

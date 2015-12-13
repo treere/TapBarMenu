@@ -9,8 +9,8 @@ android {
     applicationId "com.michaldrabik.tapbarmenu"
     minSdkVersion 16
     targetSdkVersion 23
-    versionCode 4
-    versionName "1.0.3"
+    versionCode 5
+    versionName "1.0.4"
     generatedDensities = []
   }
   buildTypes {
@@ -26,5 +26,5 @@ dependencies {
   testCompile 'junit:junit:4.12'
   compile 'com.android.support:appcompat-v7:23.1.1'
   compile 'com.jakewharton:butterknife:7.0.1'
-  compile project(':library')
+  compile 'com.github.michaldrabik:tapbarmenu:1.0.4'
 }
