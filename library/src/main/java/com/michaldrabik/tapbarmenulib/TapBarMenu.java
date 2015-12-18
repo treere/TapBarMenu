@@ -96,26 +96,30 @@ public class TapBarMenu extends LinearLayout {
   private void setupAttributes(AttributeSet attrs) {
     TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.TapBarMenu, 0, 0);
 
-    if (typedArray.hasValue(R.styleable.TapBarMenu_tbm_iconOpened)) {
-      iconOpenedDrawable = typedArray.getDrawable(R.styleable.TapBarMenu_tbm_iconOpened);
-    } else {
-      iconOpenedDrawable = ResourcesCompat.getDrawable(getContext(), R.drawable.icon_animated);
-    }
-
-    if (typedArray.hasValue(R.styleable.TapBarMenu_tbm_iconClosed)) {
-      iconClosedDrawable = typedArray.getDrawable(R.styleable.TapBarMenu_tbm_iconClosed);
-    } else {
-      iconClosedDrawable = ResourcesCompat.getDrawable(getContext(), R.drawable.icon_close_animated);
-    }
-
-    backgroundColor = typedArray.getColor(R.styleable.TapBarMenu_tbm_backgroundColor, ContextCompat.getColor(getContext(), R.color.red));
+    iconOpenedDrawable =
+            typedArray.hasValue(R.styleable.TapBarMenu_tbm_iconOpened) ?
+            typedArray.getDrawable(R.styleable.TapBarMenu_tbm_iconOpened) :
+            ResourcesCompat.getDrawable(getContext(), R.drawable.icon_animated);
+    iconClosedDrawable =
+            typedArray.hasValue(R.styleable.TapBarMenu_tbm_iconClosed) ?
+            typedArray.getDrawable(R.styleable.TapBarMenu_tbm_iconClosed) :
+            ResourcesCompat.getDrawable(getContext(), R.drawable.icon_close_animated);
+    animationDuration =
+            getResources().getInteger(R.integer.animationDuration);
+    backgroundColor =
+            typedArray.getColor(R.styleable.TapBarMenu_tbm_backgroundColor, ContextCompat.getColor(getContext(), R.color.red));
     buttonSize =
-        typedArray.getDimensionPixelSize(R.styleable.TapBarMenu_tbm_buttonSize, getResources().getDimensionPixelSize(R.dimen.defaultButtonSize));
-    buttonMarginRight = typedArray.getDimensionPixelSize(R.styleable.TapBarMenu_tbm_buttonMarginRight, 0);
-    buttonMarginLeft = typedArray.getDimensionPixelSize(R.styleable.TapBarMenu_tbm_buttonMarginLeft, 0);
-    buttonPosition = typedArray.getInt(R.styleable.TapBarMenu_tbm_buttonPosition, BUTTON_POSITION_CENTER);
-    menuAnchor = typedArray.getInt(R.styleable.TapBarMenu_tbm_menuAnchor, MENU_ANCHOR_BOTTOM);
-    showMenuItems = typedArray.getBoolean(R.styleable.TapBarMenu_tbm_showItems, false);
+            typedArray.getDimensionPixelSize(R.styleable.TapBarMenu_tbm_buttonSize, getResources().getDimensionPixelSize(R.dimen.defaultButtonSize));
+    buttonMarginRight =
+            typedArray.getDimensionPixelSize(R.styleable.TapBarMenu_tbm_buttonMarginRight, 0);
+    buttonMarginLeft =
+            typedArray.getDimensionPixelSize(R.styleable.TapBarMenu_tbm_buttonMarginLeft, 0);
+    buttonPosition =
+            typedArray.getInt(R.styleable.TapBarMenu_tbm_buttonPosition, BUTTON_POSITION_CENTER);
+    menuAnchor =
+            typedArray.getInt(R.styleable.TapBarMenu_tbm_menuAnchor, MENU_ANCHOR_BOTTOM);
+    showMenuItems =
+            typedArray.getBoolean(R.styleable.TapBarMenu_tbm_showItems, false);
     typedArray.recycle();
   }
 
@@ -155,7 +159,6 @@ public class TapBarMenu extends LinearLayout {
         invalidate();
       }
     });
-    animationDuration = getResources().getInteger(R.integer.animationDuration);
     animatorSet.setDuration(animationDuration);
     animatorSet.setInterpolator(DECELERATE_INTERPOLATOR);
     animatorSet.playTogether(animator);
