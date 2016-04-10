@@ -6,11 +6,15 @@ android {
   buildToolsVersion "23.0.2"
   resourcePrefix 'tbm_'
 
+  sourceSets {
+    main.res.srcDirs 'res', 'res-public'
+  }
+
   defaultConfig {
     minSdkVersion 16
     targetSdkVersion 23
-    versionCode 5
-    versionName "1.0.4"
+    versionCode 6
+    versionName "1.0.5"
     generatedDensities = []
   }
   buildTypes {
